@@ -10,7 +10,33 @@ def can_construct(ransomNote: str, magazine: str) -> bool:
     Returns:
         bool: True if ransomNote can be constructed, False otherwise.
     """
+    
+    # I did it a long way to practice more.
     if len(ransomNote) > len(magazine):
+        return False
+    
+    ransome_count = {}
+    magazine_count = {}
+
+    if len(ransomNote) > len(magazine):
+        return False
+
+    for char in ransomNote:
+        if char not in magazine:
+            return False
+        ransome_count[char] = ransome_count.get(char, 0) + 1
+    
+    for char in magazine:
+        magazine_count[char] = magazine_count.get(char, 0) + 1
+    
+    for char, count in ransome_count.items():
+        if magazine_count.get(char, 0) < count:
+            return False
+    return True
+
+# This is a shorter version:
+"""
+if len(ransomNote) > len(magazine):
         return False
     
     from collections import Counter
@@ -21,3 +47,4 @@ def can_construct(ransomNote: str, magazine: str) -> bool:
         if magazine_count[char] < count:
             return False
     return True
+"""
